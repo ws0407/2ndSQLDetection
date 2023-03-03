@@ -1,0 +1,403 @@
+array(
+    0: Stmt_Expression(
+        expr: Expr_FuncCall(
+            name: Name(
+                parts: array(
+                    0: session_start
+                )
+            )
+            args: array(
+            )
+        )
+    )
+    1: Stmt_Expression(
+        expr: Expr_Assign(
+            var: Expr_Variable(
+                name: username
+            )
+            expr: Expr_ArrayDimFetch(
+                var: Expr_Variable(
+                    name: _SESSION
+                )
+                dim: Scalar_String(
+                    value: username
+                )
+            )
+        )
+    )
+    2: Stmt_Echo(
+        exprs: array(
+            0: Expr_Variable(
+                name: username
+            )
+        )
+    )
+    3: Stmt_Echo(
+        exprs: array(
+            0: Scalar_String(
+                value: <form method="post">
+            		  原来的密码<input type="password" name="old_password" required="required">
+            		  修改后的密码<input type="password" name="new_password" required="required">
+            		  <input type="submit" name="change" value="修改">
+            		</form>
+            )
+        )
+    )
+    4: Stmt_If(
+        cond: Expr_Isset(
+            vars: array(
+                0: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: _POST
+                    )
+                    dim: Scalar_String(
+                        value: change
+                    )
+                )
+            )
+        )
+        stmts: array(
+            0: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: conn
+                    )
+                    expr: Expr_New(
+                        class: Name(
+                            parts: array(
+                                0: mysqli
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                name: null
+                                value: Scalar_String(
+                                    value: 10.122.241.50
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                            1: Arg(
+                                name: null
+                                value: Scalar_String(
+                                    value: root
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                            2: Arg(
+                                name: null
+                                value: Scalar_String(
+                                    value: shuo1092
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                            3: Arg(
+                                name: null
+                                value: Scalar_String(
+                                    value: sql_test
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_If(
+                cond: Expr_PropertyFetch(
+                    var: Expr_Variable(
+                        name: conn
+                    )
+                    name: Identifier(
+                        name: connect_error
+                    )
+                )
+                stmts: array(
+                    0: Stmt_Expression(
+                        expr: Expr_Exit(
+                            expr: Expr_BinaryOp_Concat(
+                                left: Scalar_String(
+                                    value: 数据库连接失败: 
+                                )
+                                right: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: conn
+                                    )
+                                    name: Identifier(
+                                        name: connect_error
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+                elseifs: array(
+                )
+                else: null
+            )
+            2: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: old_pass
+                    )
+                    expr: Expr_ArrayDimFetch(
+                        var: Expr_Variable(
+                            name: _POST
+                        )
+                        dim: Scalar_String(
+                            value: old_password
+                        )
+                    )
+                )
+            )
+            3: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: new_pass
+                    )
+                    expr: Expr_ArrayDimFetch(
+                        var: Expr_Variable(
+                            name: _POST
+                        )
+                        dim: Scalar_String(
+                            value: new_password
+                        )
+                    )
+                )
+            )
+            4: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: old_password
+                    )
+                    expr: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: mysqli_real_escape_string
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                name: null
+                                value: Expr_Variable(
+                                    name: conn
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                            1: Arg(
+                                name: null
+                                value: Expr_Variable(
+                                    name: old_pass
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                        )
+                    )
+                )
+            )
+            5: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: new_password
+                    )
+                    expr: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: mysqli_real_escape_string
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                name: null
+                                value: Expr_Variable(
+                                    name: conn
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                            1: Arg(
+                                name: null
+                                value: Expr_Variable(
+                                    name: new_pass
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                        )
+                    )
+                )
+            )
+            6: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: sql
+                    )
+                    expr: Scalar_Encapsed(
+                        parts: array(
+                            0: Scalar_EncapsedStringPart(
+                                value: select distinct *
+                            			from user
+                            			where username = '
+                            )
+                            1: Expr_Variable(
+                                name: username
+                            )
+                            2: Scalar_EncapsedStringPart(
+                                value: ' and password = '
+                            )
+                            3: Expr_Variable(
+                                name: old_password
+                            )
+                            4: Scalar_EncapsedStringPart(
+                                value: '
+                            )
+                        )
+                    )
+                )
+            )
+            7: Stmt_Expression(
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: result
+                    )
+                    expr: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: conn
+                        )
+                        name: Identifier(
+                            name: query
+                        )
+                        args: array(
+                            0: Arg(
+                                name: null
+                                value: Expr_Variable(
+                                    name: sql
+                                )
+                                byRef: false
+                                unpack: false
+                            )
+                        )
+                    )
+                )
+            )
+            8: Stmt_If(
+                cond: Expr_BinaryOp_Greater(
+                    left: Expr_PropertyFetch(
+                        var: Expr_Variable(
+                            name: result
+                        )
+                        name: Identifier(
+                            name: num_rows
+                        )
+                    )
+                    right: Scalar_LNumber(
+                        value: 0
+                    )
+                )
+                stmts: array(
+                    0: Stmt_Expression(
+                        expr: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: mysqli_query
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    name: null
+                                    value: Expr_Variable(
+                                        name: conn
+                                    )
+                                    byRef: false
+                                    unpack: false
+                                )
+                                1: Arg(
+                                    name: null
+                                    value: Scalar_Encapsed(
+                                        parts: array(
+                                            0: Scalar_EncapsedStringPart(
+                                                value: UPDATE user SET password='
+                                            )
+                                            1: Expr_Variable(
+                                                name: new_password
+                                            )
+                                            2: Scalar_EncapsedStringPart(
+                                                value: '
+                                            	    WHERE username = '
+                                            )
+                                            3: Expr_Variable(
+                                                name: username
+                                            )
+                                            4: Scalar_EncapsedStringPart(
+                                                value: '
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                    unpack: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_Echo(
+                        exprs: array(
+                            0: Scalar_String(
+                                value: <script>alert('修改成功')</script>
+                            )
+                        )
+                    )
+                    2: Stmt_Expression(
+                        expr: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: session_destroy
+                                )
+                            )
+                            args: array(
+                            )
+                        )
+                    )
+                    3: Stmt_Echo(
+                        exprs: array(
+                            0: Scalar_String(
+                                value: <script>window.location.href='index.html';</script>
+                            )
+                        )
+                    )
+                )
+                elseifs: array(
+                )
+                else: Stmt_Else(
+                    stmts: array(
+                        0: Stmt_Echo(
+                            exprs: array(
+                                0: Scalar_String(
+                                    value: <script>alert('原密码错误')</script>
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+        elseifs: array(
+        )
+        else: null
+    )
+    5: Stmt_Expression(
+        expr: Expr_MethodCall(
+            var: Expr_Variable(
+                name: conn
+            )
+            name: Identifier(
+                name: close
+            )
+            args: array(
+            )
+        )
+    )
+)
